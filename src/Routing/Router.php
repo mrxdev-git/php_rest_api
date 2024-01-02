@@ -15,6 +15,7 @@ class Router {
 
 	private function resolve($uri, $method)
 	{
+		$method = strtolower($method);
 		if (isset(self::$routes[$method . ':' . $uri])){
 			$route = self::$routes[$method . ':' . $uri];
 
