@@ -19,7 +19,7 @@ class Router {
 		if (isset(self::$routes[$method . ':' . $uri])){
 			$route = self::$routes[$method . ':' . $uri];
 
-			[$uri, $handler] = $route;
+			['uri' => $uri, 'handler' => $handler] = $route;
 
 			if (is_array($handler) && isset($handler[0]) && !isset($handler[1])){
 				$handler[1] = 'execute';
