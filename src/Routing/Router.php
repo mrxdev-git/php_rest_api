@@ -21,8 +21,18 @@ class Router {
 
 			['uri' => $uri, 'handler' => $handler] = $route;
 
-			if (is_array($handler) && isset($handler[0]) && !isset($handler[1])){
-				$handler[1] = 'execute';
+			if (!$handler){
+				throw new \Exception('Invalid route handler');
+			}
+
+			if (is_array($handler)){
+				if (is_string($handler[0])) {
+					$handler[0] = new ($handler[0])();
+				}
+
+				if (!isset($handler[1])) {
+					$handler[1] = 'execute';
+				}
 			}
 
 			$this->route = new Route($uri, $handler);
