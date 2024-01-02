@@ -15,11 +15,9 @@ class Router {
 
 	protected function resolve($uri, $method)
 	{
-		if (isset(self::$routes[$method . ':' . $uri])){
-			$this->route = new Route(...self::$routes[$method . ':' . $uri]);
-		} else {
-			$this->route = new Route404();
-		}
+		$this->route = isset(self::$routes[$method . ':' . $uri])
+			   ? new Route(...self::$routes[$method . ':' . $uri])
+			   : new Route404();
 	}
 
 	public static function __callStatic($server_method, $args)
