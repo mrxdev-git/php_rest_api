@@ -30,12 +30,26 @@ class System
 	public function boot()
 	{
 		$this->loadRoutes();
+		$this->dispatch();
 	}
 
 	private function loadRoutes()
 	{
 		$file_path = BASE_DIR . '/config/routes.php';
 		include($file_path);
+	}
+
+	private function dispatch()
+	{
+		$uri = $_SERVER['REQUEST_URI'];
+		$server_method = $_SERVER['REQUEST_METHOD'];
+
+		$parsed_uri = parse_url($uri);
+
+		$this->router->dispatch(
+			   $parsed_uri['path'],
+			   $server_method
+		);
 	}
 
 }
