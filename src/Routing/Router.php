@@ -15,19 +15,25 @@ class Router {
 
 	private function resolve($uri, $method)
 	{
-		$this->route = isset(self::$routes[$method . ':' . $uri])
-			   ? new Route(...self::$routes[$method . ':' . $uri])
-			   : new Route404();
+		if (isset(self::$routes[$method . ':' . $uri])){
+			$route = self::$routes[$method . ':' . $uri];
+
+			[$uri, $handler] = $route;
+
+			if (is_array($handler) && isset($handler[0]) && !isset($handler[1])){
+				$handler[1] = 'execute';
+			}
+
+			$this->route = new Route($uri, $handler);
+		} else {
+			$this->route = new Route404();
+		}
 	}
 
 	public static function __callStatic($server_method, $args)
 	{
 		$server_method = strtolower($server_method);
 		[$uri, $handler] = $args;
-
-		if (is_array($handler) && isset($handler[0]) && !isset($handler[1])){
-			$handler[1] = 'execute';
-		}
 
 		self::$routes[$server_method . ':' . $uri] = [
 			   'uri'     => $uri,
