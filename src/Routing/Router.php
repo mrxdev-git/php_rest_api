@@ -13,7 +13,7 @@ class Router {
 		$route->run();
 	}
 
-	protected function getRoute($uri, $method)
+	protected function resolve($uri, $method)
 	{
 		if (isset(self::$routes[$method . ':' . $uri])){
 			return new Route(...self::$routes[$method . ':' . $uri]);
