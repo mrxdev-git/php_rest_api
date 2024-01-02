@@ -7,19 +7,21 @@ class Router {
 
 	protected static array $routes = [];
 
+	private ?IRoute $route = null;
+
 	public function dispatch($uri, $method)
 	{
-		$route = $this->getRoute($uri, $method);
-		$route->run();
+		$this->resolve($uri, $method);
+		$this->route->run();
 	}
 
 	protected function resolve($uri, $method)
 	{
 		if (isset(self::$routes[$method . ':' . $uri])){
-			return new Route(...self::$routes[$method . ':' . $uri]);
+			$this->route = new Route(...self::$routes[$method . ':' . $uri]);
+		} else {
+			$this->route = new Route404();
 		}
-
-		return new \Route404();
 	}
 
 	public static function __callStatic($server_method, $args)
