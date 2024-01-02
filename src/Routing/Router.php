@@ -25,7 +25,7 @@ class Router {
 		$server_method = strtolower($server_method);
 		[$uri, $handler] = $args;
 
-		if (is_array($handler) && !isset($handler[1])){
+		if (is_array($handler) && isset($handler[0]) && !isset($handler[1])){
 			$handler[1] = 'execute';
 		}
 
