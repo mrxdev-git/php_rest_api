@@ -31,7 +31,7 @@ class Router {
 				}
 
 				if (!isset($handler[1])) {
-					$handler[1] = 'execute';
+					$handler[1] = 'run';
 				}
 			}
 
