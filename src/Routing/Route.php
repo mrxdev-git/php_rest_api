@@ -1,7 +1,7 @@
 <?php
 namespace DataEx\Routing;
 
-class Route
+class Route implements IRoute
 {
 	protected string $uri;
 	protected $handler;

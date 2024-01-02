@@ -1,7 +1,7 @@
 <?php
 use DataEx\Response\ResponseFormatter;
 
-class Route404 {
+class Route404 implements IRoute {
 
 	public function run()
 	{
