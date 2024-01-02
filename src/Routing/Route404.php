@@ -1,4 +1,6 @@
 <?php
+namespace DataEx\Routing;
+
 use DataEx\Response\ResponseFormatter;
 
 class Route404 implements IRoute {
