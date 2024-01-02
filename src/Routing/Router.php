@@ -1,8 +1,6 @@
 <?php
 namespace DataEx\Routing;
 
-use DataEx\Routing\Route;
-
 class Router {
 
 	protected static array $routes = [];
