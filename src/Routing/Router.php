@@ -13,7 +13,7 @@ class Router {
 		$this->route->run();
 	}
 
-	protected function resolve($uri, $method)
+	private function resolve($uri, $method)
 	{
 		$this->route = isset(self::$routes[$method . ':' . $uri])
 			   ? new Route(...self::$routes[$method . ':' . $uri])
