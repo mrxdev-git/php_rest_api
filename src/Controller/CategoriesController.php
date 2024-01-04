@@ -2,12 +2,18 @@
 
 namespace DataEx\Controller;
 
-class CategoriesController
+use DataEx\Model\CategoriesModel;
+
+class CategoriesController extends Controller
 {
 
-	public function run()
+	public function process(): array
 	{
-		echo 'ok';
+		$offset = $_GET['offset'] ?? 0;
+		$limit  = $_GET['limit'] ?? 100;
+
+		$model = new CategoriesModel();
+		return $model->getAll($offset, $limit);
 	}
 
 }
