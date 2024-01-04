@@ -8,10 +8,10 @@ use Exception;
 
 class DbConnector
 {
-	private string $host = 'localhost';
-	private string $db   = 'apidb';
-	private string $user = '';
-	private string $password = '';
+	private string $host = '127.0.0.1';
+	private string $db   = 'wa';
+	private string $user = 'root';
+	private string $password = 'root';
 
 	protected ?PDO $conn = null;
 
