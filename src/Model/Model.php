@@ -25,5 +25,6 @@ abstract class Model
 		$statement->bindValue(2, $limit, PDO::PARAM_INT);
 
 		$statement->execute();
+		return $statement->fetchAll(PDO::FETCH_COLUMN);
 	}
 }
