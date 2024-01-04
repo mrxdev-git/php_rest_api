@@ -6,14 +6,21 @@ class ResponseFormatter
 {
 	public function sendSuccess($data)
 	{
-		header('Content-Type: application/json');
-		echo json_encode(['data' => $data]);
+		$this->send(['data' => $data]);
 	}
 
 	public function sendError($message, $statusCode = 400)
 	{
-		header('Content-Type: application/json');
-		http_response_code($statusCode);
-		echo json_encode(['error' => $message]);
+		$this->send(['error' => $message], $statusCode);
 	}
+
+	protected function send($data, $statusCode = 200)
+	{
+		header('Content-Type: application/json');
+		if ($statusCode){
+			http_response_code($statusCode);
+		}
+		echo json_encode($data);
+	}
+
 }
