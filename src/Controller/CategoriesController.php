@@ -13,7 +13,7 @@ class CategoriesController extends Controller
 		$limit  = $_GET['limit'] ?? 100;
 
 		$model = new CategoriesModel();
-		return $model->getAll($offset, $limit);
+		return $model->getCategories();
 	}
 
 }
