@@ -12,6 +12,6 @@ class ProductsController extends Controller
 		$limit  = $_GET['limit'] ?? 100;
 
 		$model = new ProductsModel();
-		return $model->getAll($offset, $limit);
+		return $model->getAll('*', 'id ASC', $offset, $limit);
 	}
 }
