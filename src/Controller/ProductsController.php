@@ -2,7 +2,7 @@
 
 namespace DataEx\Controller;
 
-class ProductsController
+class ProductsController extends Controller
 {
 	public function process(): array
 	{
