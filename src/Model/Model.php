@@ -3,10 +3,11 @@
 namespace DataEx\Model;
 
 use DataEx\Database\DbConnector;
+use PDO;
 
 abstract class Model
 {
-	protected \PDO $conn;
+	protected ?PDO $conn = null;
 	protected string $table;
 
 	public function __construct()
