@@ -2,6 +2,10 @@
 
 namespace DataEx\Database;
 
+use PDO;
+use PDOException;
+use Exception;
+
 class DbConnector
 {
 	private string $host = 'localhost';
@@ -9,12 +13,12 @@ class DbConnector
 	private string $user = '';
 	private string $password = '';
 
-	protected \PDO $conn;
+	protected ?PDO $conn = null;
 
 	public function connect()
 	{
 		try {
-			$this->conn = new \PDO(
+			$this->conn = new PDO(
 				   'mysql:host=' . $this->host . ';dbname=' . $this->db,
 				   $this->user,
 				   $this->password,
@@ -24,9 +28,8 @@ class DbConnector
 			);
 
 			$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-		} catch (\PDOException $e) {
-			echo $e->getMessage();
+		} catch (PDOException $e) {
+			throw new Exception($e->getMessage(), $e->getCode(), $e);
 		}
 
 		return $this->conn;
