@@ -4,10 +4,8 @@ namespace DataEx\Controller;
 
 class ProductsController
 {
-
-	public function run()
+	public function process(): array
 	{
 
 	}
-
 }
