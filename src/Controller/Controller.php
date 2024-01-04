@@ -18,7 +18,7 @@ abstract class Controller
 	{
 		try {
 			$response = $this->process();
-			$this->response->send($response);
+			$this->response->sendSuccess($response);
 		} catch (Exception $e){
 			$this->response->sendError($e->getMessage());
 		}

@@ -4,7 +4,7 @@ namespace DataEx\Response;
 
 class ResponseFormatter
 {
-	public function send($data)
+	public function sendSuccess($data)
 	{
 		header('Content-Type: application/json');
 		echo json_encode(['data' => $data]);
