@@ -21,8 +21,9 @@ abstract class Model
 		$sql = "SELECT * FROM `{$this->table}` LIMIT ?,?";
 		$statement = $this->conn->prepare($sql);
 
-		$statement->bindParam(1, $offset);
-		$statement->bindParam(2, $limit);
+		$statement->bindValue(1, $offset, PDO::PARAM_INT);
+		$statement->bindValue(2, $limit, PDO::PARAM_INT);
+
 		$statement->execute();
 	}
 }
