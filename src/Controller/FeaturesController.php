@@ -12,6 +12,6 @@ class FeaturesController extends Controller
 		$limit  = $_GET['limit'] ?? 100;
 
 		$model = new FeaturesModel();
-		return $model->getFeatures($offset, $limit);
+		return $model->getFeaturesInUse($offset, $limit);
 	}
 }

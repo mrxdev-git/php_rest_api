@@ -15,4 +15,16 @@ class FeaturesModel extends Model {
 			   $limit
 		);
 	}
+
+	public function getFeaturesInUse($offset, $limit)
+	{
+		return $this->query("SELECT sf.*
+			FROM `{$this->table}` AS sf
+            WHERE sf.`id` IN
+            	(SELECT DISTINCT `feature_id` FROM `shop_product_features`)
+            LIMIT :offset, :limit", [
+				   'i:offset' => $offset,
+				   'i:limit' => $limit
+		]);
+	}
 }
