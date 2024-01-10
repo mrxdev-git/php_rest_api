@@ -12,8 +12,7 @@ abstract class Model
 
 	public function __construct()
 	{
-		$db = new DbConnector();
-		$this->conn = $db->connect();
+		$this->conn = DbConnector::getConnection();
 	}
 
 	public function getAll($fields = '*', $order_by = null, $offset = 0, $limit = 100)
