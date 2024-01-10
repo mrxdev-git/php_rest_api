@@ -16,7 +16,7 @@ class ResponseFormatter
 
 	protected function send($data, $statusCode = 200)
 	{
-		header('Content-Type: application/json');
+		header('Content-Type: application/json; charset=UTF-8');
 		if ($statusCode){
 			http_response_code($statusCode);
 		}
