@@ -3,6 +3,7 @@
 namespace DataEx\Controller;
 
 use DataEx\Model\ProductsModel;
+use DataEx\Service\ProductService;
 
 class ProductsController extends Controller
 {
@@ -11,7 +12,8 @@ class ProductsController extends Controller
 		$offset = $_GET['offset'] ?? 0;
 		$limit  = $_GET['limit'] ?? 100;
 
-		$model = new ProductsModel();
-		return $model->getAll('*', 'id ASC', $offset, $limit);
+		$product_service = new ProductService();
+
+		return $product_service->getProducts($offset, $limit);
 	}
 }
