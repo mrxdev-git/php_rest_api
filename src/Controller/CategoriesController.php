@@ -10,7 +10,9 @@ class CategoriesController extends Controller
 	public function process(): array
 	{
 		$model = new CategoriesModel();
-		return $model->getCategories();
+		$cats = $model->getCategories();
+
+		return $cats;
 	}
 
 }
