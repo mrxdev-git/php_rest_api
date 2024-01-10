@@ -7,7 +7,14 @@ use PDO;
 
 abstract class Model
 {
+	/**
+	 * @var PDO|null the database connection
+	 */
 	protected $conn = null;
+
+	/**
+	 * @var string the name of the table
+	 */
 	protected $table;
 
 	public function __construct()
