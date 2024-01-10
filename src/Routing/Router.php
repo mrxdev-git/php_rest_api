@@ -27,7 +27,7 @@ class Router {
 
 			if (is_array($handler)){
 				if (is_string($handler[0])) {
-					$handler[0] = new ($handler[0])();
+					$handler[0] = new $handler[0]();
 				}
 
 				if (!isset($handler[1])) {
