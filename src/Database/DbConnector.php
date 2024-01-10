@@ -21,16 +21,16 @@ class DbConnector
 	{
 		try {
 			$conn = new PDO(
-				   'mysql:host=' . $this->host . ';dbname=' . $this->db,
+				   'mysql:host=' . $this->host . ';dbname=' . $this->db . ';charset=utf8',
 				   $this->user,
 				   $this->password,
 				   [
-						  PDO::ATTR_PERSISTENT => true
+						  PDO::ATTR_PERSISTENT => true,
+						  PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
 				   ]
 			);
 
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$conn->exec("SET NAMES utf8");
 		} catch (PDOException $e) {
 			throw new Exception($e->getMessage(), $e->getCode(), $e);
 		}
