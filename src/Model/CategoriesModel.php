@@ -4,7 +4,7 @@ namespace DataEx\Model;
 
 class CategoriesModel extends Model
 {
-	protected string $table = 'shop_category';
+	protected $table = 'shop_category';
 
 	public function getCategories()
 	{

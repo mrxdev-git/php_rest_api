@@ -3,9 +3,9 @@ namespace DataEx\Routing;
 
 class Router {
 
-	protected static array $routes = [];
+	protected static $routes = [];
 
-	private ?IRoute $route = null;
+	private $route;
 
 	public function dispatch($uri, $method)
 	{

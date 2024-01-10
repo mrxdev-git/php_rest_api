@@ -8,12 +8,12 @@ use Exception;
 
 class DbConnector
 {
-	private string $host = '127.0.0.1';
-	private string $db   = 'wa';
-	private string $user = 'root';
-	private string $password = 'root';
+	private $host = 'localhost';
+	private $db   = 'admin_eltorg';
+	private $user = 'admin_eltorg';
+	private $password = 'FIz6IL4LBOyaeTZ3dRgS';
 
-	protected ?PDO $conn = null;
+	protected $conn = null;
 
 	public function connect()
 	{

@@ -7,8 +7,8 @@ use PDO;
 
 abstract class Model
 {
-	protected ?PDO $conn = null;
-	protected string $table;
+	protected $conn = null;
+	protected $table;
 
 	public function __construct()
 	{
