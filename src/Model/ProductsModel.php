@@ -30,28 +30,34 @@ class ProductsModel extends Model
 			   'i:product_id' => $product_id
 		]);
 
+		$result = [];
+
 		if ($features){
-			foreach ($features as &$feature){
-				$feature['values'] = $this->getProductValues(
+			foreach ($features as $feature){
+				$values = $this->getProductValues(
 					   $product_id,
 					   $feature['id'],
 					   $feature['type']
 				);
 
-				unset($feature['type']);
+				if ($values) {
+					$result[$feature['code']] = array_map(
+						   function($value) {
+							   return $value['value'];
+						   }, $values
+					);
+				}
 			}
 		}
 
-		return array_filter($features, function($feature){
-			return !empty($feature['values']);
-		});
+		return $result;
 	}
 
 	public function getProductValues($product_id, $feature_id, $feature_type)
 	{
 		$table_name = $this->resolveTableName($feature_type);
 
-		$sql = "SELECT vtable.`id`, vtable.`value` 
+		$sql = "SELECT vtable.`value`
 				FROM `{$table_name}` AS vtable
 					JOIN `shop_product_features` AS spf
 						ON vtable.id = spf.feature_value_id
