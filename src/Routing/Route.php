@@ -3,7 +3,7 @@ namespace DataEx\Routing;
 
 class Route implements IRoute
 {
-	protected string $uri;
+	protected $uri;
 	protected $handler;
 
 	public function __construct($uri, $handler)

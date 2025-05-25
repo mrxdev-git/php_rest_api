@@ -4,12 +4,12 @@ namespace DataEx\Model;
 
 class CategoriesModel extends Model
 {
-	protected string $table = 'shop_category';
+	protected $table = 'shop_category';
 
 	public function getCategories()
 	{
 		return $this->getAll(
-			   'id,name,parent_id, filters, status, url',
+			   'id, name, parent_id, filter, status, url, full_url, description, summary',
 			   'parent_id ASC',
 			   false
 		);

@@ -7,7 +7,7 @@ use DataEx\Response\ResponseFormatter;
 
 abstract class Controller
 {
-	protected ResponseFormatter $response;
+	protected $response;
 
 	public function __construct()
 	{

@@ -8,9 +8,9 @@ use DataEx\Routing\Router;
 
 class System
 {
-	private static ?System $instance = null;
+	private static $instance;
 
-	private Router $router;
+	private $router;
 
 	private function __construct(){
 		$this->router = new Router();

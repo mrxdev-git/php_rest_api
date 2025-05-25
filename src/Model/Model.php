@@ -7,13 +7,19 @@ use PDO;
 
 abstract class Model
 {
-	protected ?PDO $conn = null;
-	protected string $table;
+	/**
+	 * @var PDO|null the database connection
+	 */
+	protected $conn = null;
+
+	/**
+	 * @var string the name of the table
+	 */
+	protected $table;
 
 	public function __construct()
 	{
-		$db = new DbConnector();
-		$this->conn = $db->connect();
+		$this->conn = DbConnector::getConnection();
 	}
 
 	public function getAll($fields = '*', $order_by = null, $offset = 0, $limit = 100)
@@ -21,16 +27,45 @@ abstract class Model
 		$sql = "SELECT {$fields} 
 				FROM `{$this->table}`
 				" . ($order_by ? "ORDER BY " . $order_by : "") . "
-				" . ($offset !== false ? "LIMIT ?,?" : "");
+				" . ($offset !== false ? "LIMIT :offset,:limit" : "");
 
-		$statement = $this->conn->prepare($sql);
-
+		$params = [];
 		if ($offset !== false) {
-			$statement->bindValue(1, $offset, PDO::PARAM_INT);
-			$statement->bindValue(2, $limit, PDO::PARAM_INT);
+			$params['i:offset'] = $offset;
+			$params['i:limit'] = $limit;
 		}
 
-		$statement->execute();
-		return $statement->fetchAll(PDO::FETCH_COLUMN);
+		return $this->query($sql, $params);
+	}
+
+	public function query($sql, $params = [])
+	{
+		$stmt = $this->conn->prepare($sql);
+
+		if ($params){
+			$this->bindParams($stmt, $params);
+		}
+
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	protected function bindParams($stmt, $params)
+	{
+		foreach ($params as $key => $value){
+			$_key = explode(':', $key);
+
+			$type = PDO::PARAM_STR;
+			if (count($_key) === 2){
+				switch ($_key[0]){
+					case 'i':
+						$type = PDO::PARAM_INT;
+						break;
+				}
+			}
+
+			$key = end($_key);
+			$stmt->bindValue($key, $value, $type);
+		}
 	}
 }

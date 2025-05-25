@@ -8,30 +8,44 @@ use Exception;
 
 class DbConnector
 {
-	private string $host = '127.0.0.1';
-	private string $db   = 'wa';
-	private string $user = 'root';
-	private string $password = 'root';
+	protected static $connection;
 
-	protected ?PDO $conn = null;
+	private $host = 'localhost';
+	private $db   = 'admin_eltorg';
+	private $user = 'admin_eltorg';
+	private $password = 'FIz6IL4LBOyaeTZ3dRgS';
+
+	private function __construct(){}
 
 	public function connect()
 	{
 		try {
-			$this->conn = new PDO(
-				   'mysql:host=' . $this->host . ';dbname=' . $this->db,
+			$conn = new PDO(
+				   'mysql:host=' . $this->host . ';dbname=' . $this->db . ';charset=utf8',
 				   $this->user,
 				   $this->password,
 				   [
-						  PDO::ATTR_PERSISTENT => true
+						  PDO::ATTR_PERSISTENT => true,
+						  PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
 				   ]
 			);
 
-			$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch (PDOException $e) {
 			throw new Exception($e->getMessage(), $e->getCode(), $e);
 		}
 
-		return $this->conn;
+		return $conn;
 	}
+
+	public static function getConnection()
+	{
+		if (!isset(self::$connection)){
+			$conn = new static();
+			self::$connection = $conn->connect();
+		}
+
+		return self::$connection;
+	}
+
 }
