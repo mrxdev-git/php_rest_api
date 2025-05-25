@@ -2,8 +2,6 @@
 
 namespace DataEx\Model;
 
-use PDO;
-
 class ProductsModel extends Model
 {
 	protected $table = 'shop_product';
@@ -55,19 +53,25 @@ class ProductsModel extends Model
 
 	public function getProductValues($product_id, $feature_id, $feature_type)
 	{
-		$table_name = $this->resolveTableName($feature_type);
+		try {
+			$table_name = $this->resolveTableName($feature_type);
 
-		$sql = "SELECT vtable.`value`
+			$sql = "SELECT vtable.`value`
 				FROM `{$table_name}` AS vtable
 					JOIN `shop_product_features` AS spf
 						ON vtable.id = spf.feature_value_id
 				WHERE vtable.`feature_id` = :feature_id
 					AND spf.`product_id` = :product_id";
 
-		return $this->query($sql, [
-			   'i:feature_id' => $feature_id,
-			   'i:product_id' => $product_id
-		]);
+			return $this->query(
+				   $sql, [
+				   'i:feature_id' => $feature_id,
+				   'i:product_id' => $product_id
+			]
+			);
+		} catch (\PDOException $e) {
+			return [];
+		}
 	}
 
 	public function getProductCategoryIds($product_id): array
