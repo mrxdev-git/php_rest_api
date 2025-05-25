@@ -9,7 +9,7 @@ class CategoriesModel extends Model
 	public function getCategories()
 	{
 		return $this->getAll(
-			   'id, name, parent_id, filter, status, url, full_url',
+			   'id, name, parent_id, filter, status, url, full_url, description, summary',
 			   'parent_id ASC',
 			   false
 		);

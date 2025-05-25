@@ -11,7 +11,7 @@ class ProductsModel extends Model
 	public function getProducts($offset, $limit)
 	{
 		return $this->getAll(
-			   'id, name, status, price, url',
+			   'id, name, status, price, url, description',
 			   'id ASC',
 			   $offset,
 			   $limit
